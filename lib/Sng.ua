@@ -1,14 +1,15 @@
 ~ "Math.ua" ~ Math
 ---Sng
-  # Ground state |0>⌈
+  # Ground state |0>
   Qground ← ↯2_1 1_0
   # Excited state |1>
   Qexcited ← ↯2_1 0_1
   # Superposition starter
-  Qstarter ← [Qground Qexcited]
+  Qstarter ← Qground_Qexcited
   # Linear superposition of amplitudes
   # Input: the relative amplitudes for the G and E states
-  Qsuper ← Math~Normalize Math~ScalarProduct Qstarter ⊂
+  # Qsuper ← Math~Normalize Math~ScalarProduct Qstarter ⊂
+  Qsuper ← Math~Normalize + ⊓(× Qground)(× Qexcited)
   # Bloch state
   # Input: Bloch angles, in order theta and phi
   # theta in [0, π]
