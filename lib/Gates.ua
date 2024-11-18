@@ -1,5 +1,6 @@
+# Experimental!
 ~ "Math.ua" ~ Math
----Gates
+┌─╴Gates
   # Identity gate
   I ← ⊞=.⇡2
   # Global phase
@@ -27,7 +28,7 @@
   Rx ← ↯2_2⊂⟜⇌⊂:× ¯ i Math~SinAndCos ÷2
   # Rotation around Y axis
   # Input: phase in [0, τ]
-  Ry ← ↯2_2⊂:⟜(⊢⇌)⊂⊂:⟜¯Math~SinAndCos
+  Ry ← ↯2_2⊂:⟜(⊢⇌)⊂⊂:⟜¯Math~SinAndCos ÷2
   # Rotation around Z axis
   # Input: phase in [0, τ]
   Rz ← ↯2_2 ⇌⊂⇌⊂ 0_0 ∩Math~Exp ⟜¯× i ÷ 2
@@ -36,153 +37,166 @@
   # theta in [0, π]
   # phi in [0, τ]
   # lamda in [0, τ]
-  ---Um
-    MulExtreme ← ∘⊙⊙∘ ×
+  ┌─╴Um
+    MulExtreme  ← ∘⊙⊙∘ ×
     ForkBetween ← ⊙⊙⊃¯∘⟜×
-    JoinStack ← ⊂:⊙⊂: ⊙⊙⊂
-    Call ← JoinStack ForkBetween MulExtreme Math~SinAndCos÷2⊙(Math~Exp × i +)⊙⊙⟜(Math~Exp × ¯ i) # SinAndCos÷2
-  ---
+    JoinStack   ← ⊂:⊙⊂: ⊙⊙⊂
+    Call        ← JoinStack ForkBetween MulExtreme Math~SinAndCos÷2⊙(Math~Exp × i +)⊙⊙⟜(Math~Exp × ¯ i) # SinAndCos÷2
+  └─╴
   U ← ↯2_2 Um
   # Controlled NOT gate
-  CNOT ← ↯4_4 [1_0_0_0
-               0_1_0_0
-               0_0_0_1
-               0_0_1_0]
+  CNOT ← ↯4_4 [
+    1_0_0_0
+    0_1_0_0
+    0_0_0_1
+    0_0_1_0]
   # Square root of NOT gate
   SqNOT ← ÷2 ↯2_2 + 1_1_1_1 i_(¯i)_(¯i)_i
   # XNOR gate
-  XNOR ← ↯4_4 [0_1_0_0
-               1_0_0_0
-               0_0_1_0
-               0_0_0_1]
+  XNOR ← ↯4_4 [
+    0_1_0_0
+    1_0_0_0
+    0_0_1_0
+    0_0_0_1]
   # CY
-  CY ← ↯4_4 [1_0_0_0
-             0_1_0_0
-             0_0_0_(¯i)
-             0_0_i_1]
+  CY ← ↯4_4 [
+    1_0_0_0
+    0_1_0_0
+    0_0_0_(¯i)
+    0_0_i_1]
   # CZ
-  CZ ← ↯4_4 [1_0_0_0
-             0_1_0_0
-             0_0_1_0
-             0_0_0_¯1]
+  CZ ← ↯4_4 [
+    1_0_0_0
+    0_1_0_0
+    0_0_1_0
+    0_0_0_¯1]
   # Controlled phase
   # Input: phase in [0, τ]
   CP ← ↯4_4 ⊂ 1_0_0_0_0_1_0_0_0_0_1_0_0_0_0 Math~Exp × i
   # Controlled phase S
-  CS ← ↯4_4 [1_0_0_0
-             0_1_0_0
-             0_0_1_0
-             0_0_0_i]
+  CS ← ↯4_4 [
+    1_0_0_0
+    0_1_0_0
+    0_0_1_0
+    0_0_0_i]
   # XX interaction
   # Input: phase in [0, τ]
-  ---XXm
+  ┌─╴XXm
     Prepare ↚ × ¯ i Math~SinAndCos ÷2
-    XOOY ↚ ⊂:⊂ 0_0
-    OYXO ↚ ↻2
+    XOOY    ↚ ⊂:⊂ 0_0
+    OYXO    ↚ ↻2
     Reorder ↚ ⊂:⊂⊂∩(⇌.):
-    Call ← Reorder⟜OYXO XOOY Prepare
-  ---
+    Call    ← Reorder⟜OYXO XOOY Prepare
+  └─╴
   XX ← ↯4_4 XXm # (⊂⇌⊂ 0_0)
   # YY interaction
   # Input: phase in [0, τ]
-  ---YYm
+  ┌─╴YYm
     Prepare ↚ ⊃¯∘(× i) Math~SinAndCos ÷2
     DupLast ↚ ⊙⊙.
-    XOOYp ↚ ⊂:⊂ 0_0
-    Move ↚ ⊙:
-    OYmXO ↚ ⊂ 0⇌⊂⊂ 0
+    XOOYp   ↚ ⊂:⊂ 0_0
+    Move    ↚ ⊙:
+    OYmXO   ↚ ⊂ 0⇌⊂⊂ 0
     Reorder ↚ ⊂:⊂⊂∩(⇌.)
-    Call ← Reorder ⊙XOOYp ⇌OYmXO Move DupLast Prepare
-  ---
+    Call    ← Reorder ⊙XOOYp ⇌OYmXO Move DupLast Prepare
+  └─╴
   YY ← ↯4_4 YYm
   # ZZ interaction
   # Input: phase in [0, τ]
-  ---ZZm
-    Prepare ↚ ∩Math~Exp ⟜¯× i ÷2
+  ┌─╴ZZm
+    Prepare  ↚ ∩Math~Exp ⟜¯× i ÷2
     TwoZeros ↚ ∩(⊂ :0_0)
-    XmOOO ↚ ⊂ :0
-    OXpOO ↚ ⇌⊂ 0
-    Reorder ↚ ⊂:⊂⊂∩(⇌.):
-    Call ← Reorder XmOOO : OXpOO TwoZeros Prepare
-  ---
+    XmOOO    ↚ ⊂ :0
+    OXpOO    ↚ ⇌⊂ 0
+    Reorder  ↚ ⊂:⊂⊂∩(⇌.):
+    Call     ← Reorder XmOOO : OXpOO TwoZeros Prepare
+  └─╴
   ZZ ← ↯4_4 ZZm
   # XY Interaction (XX + YY)
   # Input: phase in [0, τ]
-  ---XYm
+  ┌─╴XYm
     Prepare ↚ × ¯ i Math~SinAndCos ÷2
-    OneVec ↚ 1_0_0_0
-    OYXO ↚ ⊂ 0⇌⊂⊂ 0
+    OneVec  ↚ 1_0_0_0
+    OYXO    ↚ ⊂ 0⇌⊂⊂ 0
     Reorder ↚ ⊂:⊙⊂
-    Call ← Reorder ⊃⇌∘OneVec ⊂⟜⇌OYXO Prepare
-  ---
+    Call    ← Reorder ⊃⇌∘OneVec ⊂⟜⇌OYXO Prepare
+  └─╴
   XY ← ↯4_4 XYm
   # Double Controlled NOT
-  DCNOT ← ↯4_4 [1 0 0 0
-                0 0 1 0
-                0 0 0 1
-                0 1 0 0]
+  DCNOT ← ↯4_4 [
+    1 0 0 0
+    0 0 1 0
+    0 0 0 1
+    0 1 0 0]
   # SWAP
-  Swap ← ↯4_4 [1 0 0 0
-               0 0 1 0
-               0 1 0 0
-               0 0 0 1]
+  Swap ← ↯4_4 [
+    1 0 0 0
+    0 0 1 0
+    0 1 0 0
+    0 0 0 1]
   # Imaginary SWAP
-  ImSwap ← ↯4_4 [1 0 0 0
-                 0 0 i 0
-                 0 i 0 0
-                 0 0 0 1]
+  ImSwap ← ↯4_4 [
+    1 0 0 0
+    0 0 i 0
+    0 i 0 0
+    0 0 0 1]
   # Fermionic SWAP
-  FSwap ← ↯4_4 [1 0 0 0
-                0 0 1 0
-                0 1 0 0
-                0 0 0 ¯1]
+  FSwap ← ↯4_4 [
+    1 0 0 0
+    0 0 1 0
+    0 1 0 0
+    0 0 0 ¯1]
   # Square root SWAP
-  SqSwap ← ↯4_4 [1_0_0_0
-                 0_Math~RHCD_Math~LHCD_0
-                 0_Math~LHCD_Math~RHCD_0
-                 0_0_1_1]
+  SqSwap ← ↯4_4 [
+    1_0_0_0
+    0_Math~RHCD_Math~LHCD_0
+    0_Math~LHCD_Math~RHCD_0
+    0_0_1_1]
   # Square root imaginary SWAP
-  SqImSwap ← ↯4_4 [1_0_0_0
-                   0_(Math~OvSqTwo 1)_(Math~OvSqTwo i)_0
-                   0_(Math~OvSqTwo i)_(Math~OvSqTwo 1)_0
-                   0_0_0_1]
+  SqImSwap ← ↯4_4 [
+    1_0_0_0
+    0_(Math~OvSqTwo 1)_(Math~OvSqTwo i)_0
+    0_(Math~OvSqTwo i)_(Math~OvSqTwo 1)_0
+    0_0_0_1]
   # Swap raised to the a-th power
   # Input: a-th power
-  ---AthSwapm
-    Prepare ↚ ∩(÷2+1)⊃¯∘ × i ∿
+  ┌─╴AthSwapm
+    Prepare  ↚ ∩(÷2+1)⊃¯∘ Math~Exp × i × π
     AddZeros ↚ ⇌⊂ 0⇌⊂ 0
-    OneVec ↚ 1_0_0_0
-    Call ← ⊂ OneVec ⇌ ⊂ OneVec ⊂⇌. AddZeros ⊂ Prepare
-  ---
+    OneVec   ↚ 1_0_0_0
+    Call     ← ⊂ OneVec ⇌ ⊂ OneVec ⊂⇌. AddZeros ⊂ Prepare
+  └─╴
   AthSwap ← ↯4_4 AthSwapm
   # Fredkin (Control SWAP)
-  FRK ← ↯8_8 [1 0 0 0 0 0 0 0
-              0 1 0 0 0 0 0 0
-              0 0 1 0 0 0 0 0
-              0 0 0 1 0 0 0 0
-              0 0 0 0 1 0 0 0
-              0 0 0 0 0 0 1 0
-              0 0 0 0 0 1 0 0
-              0 0 0 0 0 0 0 1]
+  FRK ← ↯8_8 [
+    1 0 0 0 0 0 0 0
+    0 1 0 0 0 0 0 0
+    0 0 1 0 0 0 0 0
+    0 0 0 1 0 0 0 0
+    0 0 0 0 1 0 0 0
+    0 0 0 0 0 0 1 0
+    0 0 0 0 0 1 0 0
+    0 0 0 0 0 0 0 1]
   # Toffoli (Doubly-controlled NOT)
-  TOF ← ↯8_8 [1 0 0 0 0 0 0 0
-              0 1 0 0 0 0 0 0
-              0 0 1 0 0 0 0 0
-              0 0 0 1 0 0 0 0
-              0 0 0 0 1 0 0 0
-              0 0 0 0 0 1 0 0
-              0 0 0 0 0 0 0 1
-              0 0 0 0 0 0 1 0]
+  TOF ← ↯8_8 [
+    1 0 0 0 0 0 0 0
+    0 1 0 0 0 0 0 0
+    0 0 1 0 0 0 0 0
+    0 0 0 1 0 0 0 0
+    0 0 0 0 1 0 0 0
+    0 0 0 0 0 1 0 0
+    0 0 0 0 0 0 0 1
+    0 0 0 0 0 0 1 0]
   # Generalized controlled gate with k-qubit controls
   # Input: number of (preceding) control qubits
   #        gate
-  ---GCTRm
-    ID ↚ ⊞=.⇡
-    GetDim ↚ × 2+ ₙ2 ⧻
+  ┌─╴GCTRm
+    ID     ↚ ⊞=.⇡
+    GetDim ↚ ⁿ : 2+ ₙ2 ⧻
     # ZerosMat ↚ ↯ : 0 ⊂.× 2 # ⊸⧻
     ReplaceSubMatrix ↚ ⍜↙◌ ¯△,
-    Call ← ReplaceSubMatrix ID GetDim,
+    Call             ← ReplaceSubMatrix ID GetDim,
     # not finished yet
-  ---
+  └─╴
   GCTR ← GCTRm
----
+└─╴

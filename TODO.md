@@ -8,6 +8,6 @@ There is the [uiua-math](https://github.com/Omnikar/uiua-math) ([website](https:
 
 [X] Tests on Sng complete
 [ ] Tests on Mlt complete
-[ ] Tests on Gates complete
+[X] Tests on Gates complete
 [ ] Tests on Circ complete
 [ ] Tests on Show complete
