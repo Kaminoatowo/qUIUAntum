@@ -1,4 +1,3 @@
-# Experimental!
 ~ "Math.ua" ~ Math
 ┌─╴Gates
   # Identity gate

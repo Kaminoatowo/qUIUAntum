@@ -7,6 +7,7 @@ There is the [uiua-math](https://github.com/Omnikar/uiua-math) ([website](https:
 ## Complete tests
 
 [X] Tests on Sng complete
+[X] Tests on Math complete
 [ ] Tests on Mlt complete
 [X] Tests on Gates complete
 [ ] Tests on Circ complete
