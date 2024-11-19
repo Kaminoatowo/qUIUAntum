@@ -1,8 +1,9 @@
 # Experimental!
 ~ "../lib/Math.ua" ~ Math
 ~ "../lib/Gates.ua" ~ Gates
+~ "../lib/MathExperimental.ua" ~ MathExp
 Round!        ↚ ∵Math~RoundAny ^0
-UnitaryTest!! ↚ 1 Round!1e10 ^1 ⌵ Math~MDet ^0
+UnitaryTest!! ↚ 1 Round!1e10 ^1 ⌵ MathExp~MDet ^0
 ValueTest‼!   ↚ ^2 ^0 ^1
 ┌─╴CP
   Try     ← Gates~CP 2
