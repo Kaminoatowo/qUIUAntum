@@ -1,10 +1,14 @@
 # Experimental!
 ┌─╴test
-  ~ "test/Test.ua"
+  # ~ "test/Test.ua"
 └─╴
 ┌─╴debug
-  ~ "lib/Gates.ua" ~ Gates
+  ~ "lib/Circ.ua" ~ Circ
   ~ "lib/Math.ua" ~ Math
-  Round ↚ ∵Math~RoundAny 1e6
-  # Gates~AthSwap 2
+  ~ "lib/Mlt.ua" ~ Mlt
+  # Reg    ← Circ~Reg 1
+  Return ← Mlt~UnKroneckerProduct ↯ 4_1 [0.5 0 0.5 0]
 └─╴
+debug~Return
+# ↯ 4_1 [0.5 0.5 0.5 0]
+↯ ⊂ :1 ⟜(∵□ ⇡) 2
