@@ -1,7 +1,7 @@
 ~ "../lib/Math.ua" ~ Math
 ~ "../lib/Utils.ua" ~ Utils
+~ "../lib/Circ.ua" ~ Circ
 ┌─╴Reg
-  ~ "../lib/Circ.ua" ~ Circ
   A        ↚ ↯2_1 1_0
   Try      ← Circ~Reg 3
   Msg      ← "Testing correct register instantiation"
@@ -13,7 +13,6 @@
     (□ 3)_(□ A)_(□ 4)_(□ A)_(□ 5)_(□ A)]
 └─╴
 ┌─╴Subregister
-  ~ "../lib/Circ.ua" ~ Circ
   A        ↚ ↯2_1 1_0
   Regeg ↚ ↯6_2 [
     (□ 0)_(□ A)_(□ 1)_(□ A)_(□ 2)_(□ A)
@@ -29,7 +28,6 @@
   Correcti ← ↯3_2 (□ 4)_(□ A)_(□ 0)_(□ A)_(□ 5)_(□ B)
 └─╴
 ┌─╴Thread
-  ~ "../lib/Circ.ua" ~ Circ
   A         ↚ ↯2_1 1_0
   Try       ← Circ~Thread!2 A A A
   Msg       ← "Threading different vector states should give you the combined one on top"
@@ -41,12 +39,11 @@
   Tryi      ← Circ~Thread!2 Ai Bi Ci
   Msg       ← "Threading different vector states should give you the combined one on top"
   Correcti  ← ↯8_1 0_0_Sqrt_0_0_0_Sqrt_0
-  Tryii     ← Utils~Round!1e10 Circ~Thread!3 Ai Ai Ai Ai
+  Tryii     ← Circ~Thread!3 Ai Ai Ai Ai
   Msg       ← "Threading different vector states should give you the combined one on top"
   Correctii ← ↯16_1 0.25
 └─╴
 ┌─╴ThreadReg
-  ~ "../lib/Circ.ua" ~ Circ
   Register    ↚ Circ~Reg 3
   Try         ← Circ~ThreadReg Register
   Msg         ← "Threading different vector states should give you the combined one on top"
@@ -63,19 +60,18 @@
   Tryii       ← Utils~Round!1e10 Circ~ThreadReg Registeriii
 └─╴
 ┌─╴ThreadGate
-  ~ "../lib/Circ.ua" ~ Circ
   ~ "../lib/Gates.ua" ~ Gates
   Sqrt     ← ⁿ ÷ 2 1 ÷ 2 1
-  Try      ← Utils~Round!1e10 + 0 Circ~ThreadGate!1 Gates~H Gates~X
+  Try      ← + 0 Circ~ThreadGate!1 Gates~H Gates~X
   Msg      ← "Testing H kpr X"
-  Correct ← Utils~Round!1e10 ↯4_4 [
+  Correct ← ↯4_4 [
     0_Sqrt_0_Sqrt
     Sqrt_0_Sqrt_0
     0_Sqrt_0_(¯ Sqrt)
     Sqrt_0_(¯ Sqrt)_0]
-  Tryi     ← Utils~Round!1e10 + 0 Circ~ThreadGate!2 Gates~Z Gates~H Gates~X
+  Tryi     ← + 0 Circ~ThreadGate!2 Gates~Z Gates~H Gates~X
   Msgi     ← "Testing Z kpr H kpr X"
-  Correcti ← Utils~Round!1e10 ↯8_8 [
+  Correcti ← ↯8_8 [
     0_Sqrt_0_Sqrt_0_0_0_0
     Sqrt_0_Sqrt_0_0_0_0_0
     0_Sqrt_0_(¯ Sqrt)_0_0_0_0
@@ -86,13 +82,13 @@
     0_0_0_0_(¯ Sqrt)_0_Sqrt_0]
 └─╴
 ┌─╴Unthread
-  ~ "../lib/Circ.ua" ~ Circ
   A       ← ↯ 2_1 1_0
-  Try     ← Circ~Unthread ↯ 8_1 1_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0
+  Try     ← Circ~Unthread!2 ↯ 8_1 1_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0
   Correct ← ↯ 3_2 (□ 0)_(□ A)_(□ 1)_(□ A)_(□ 2)_(□ A)
   Msg     ← "Unthreading a vs into the states defined above"
 └─╴
 ┌─╴test
+  Round ← Utils~Round!1e10
   # Register instantiation
   ⍤⟜≍: Reg~Correct Reg~Try
   ⍤⟜≍: Reg~Correcti Reg~Tryi
@@ -105,14 +101,14 @@
   # Thread
   ⍤⟜≍: Thread~Correct Thread~Try
   ⍤⟜≍: Thread~Correcti Thread~Tryi
-  ⍤⟜≍: Thread~Correctii Thread~Tryii
+  ⍤⟜≍: ∩Round Thread~Correctii Thread~Tryii
   # ThreadReg
   ⍤⟜≍: ThreadReg~Correct ThreadReg~Try
   ⍤⟜≍: ThreadReg~Correcti ThreadReg~Tryi
   ⍤⟜≍: ThreadReg~Correctii ThreadReg~Tryii
   # ThreadGate
-  ⍤⟜≍: ThreadGate~Correct ThreadGate~Try
-  ⍤⟜≍: ThreadGate~Correcti ThreadGate~Tryi
+  ⍤⟜≍: ∩Round ThreadGate~Correct ThreadGate~Try
+  ⍤⟜≍: ∩Round ThreadGate~Correcti ThreadGate~Tryi
   # Unthread
   ⍤⟜≍: Unthread~Correct Unthread~Try
 └─╴

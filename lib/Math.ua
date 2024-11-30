@@ -1,7 +1,6 @@
 ┌─╴Math
   GCD              ← ⊙◌⍢(⟜◿:)(±,)
   OneOverSqrt      ← ÷ √ :1
-  ScalarProduct    ← /+×
   Conjugate        ← ⍜°ℂ¯
   Dagger           ← ⍉Conjugate
   Exp              ← ⁿ:e
@@ -13,8 +12,9 @@
   OvSqTwo          ← ÷√2
   RealPart         ← ◌°ℂ
   ImPart           ← ◌:°ℂ
+  ScalarProduct    ← RealPart/+×
   Normalize        ← RealPart÷√:⟜(ScalarProduct⟜Conjugate) # this works for ket vectors
   SignToBit        ← ÷2+1±
   MixOrPure        ← =1⊢/+
-  KroneckerProduct ← /⊂≡/≡⊂×¤¤: # /⊂≡/≡⊂⍜⊙♭×¤
+  KroneckerProduct ← /⊂≡/≡⊂×¤¤:
 └─╴

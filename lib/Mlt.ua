@@ -12,5 +12,5 @@
   #  Undo Kronecker product naively for vector states
   #  Input: number of qubits - 1
   #         vector state
-  UnKroneckerProduct‼ ← ↯⊂:1⊸⧻≡□≡Math~Normalize ↯ ⊂+1^0 2_1 ⍥(⊂:)^0 ⍥(CheckLen)^0 ♭ ^1
+  UnKroneckerProduct! ← ↯⊂:1⊸⧻≡□≡Math~Normalize ↯ ⊂+1^0 2_1 ⍥(⊂:)^0 ⍥(CheckLen)^0 ♭
 └─╴

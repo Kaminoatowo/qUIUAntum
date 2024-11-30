@@ -1,6 +1,6 @@
-~ "Sng.ua" ~ Sng
-~ "Math.ua" ~ Math
 ┌─╴Circ
+  ~ "Sng.ua" ~ Sng
+  ~ "Math.ua" ~ Math
   ~ "Mlt.ua" ~ Mlt
   # Replace element in given position of given boxed array with given element
   # Input: index 
@@ -26,13 +26,15 @@
   # Input: gate set
   ThreadGate! ← ⍥(Math~KroneckerProduct) ^0
   # Unthread a vector state and produce a new register
-  # Input: vector state (register)
+  # Input: number of qubits - 1
+  #        vector state (register) 
   ┌─╴Unthreadm
-    NumQubits ← ₙ 2 ⧻
+    NumQubits ← ⧻
     RangeNum  ← ↯ ⊂ :1 ⟜(∵□ ⇡) NumQubits
-    Call      ← Mlt~UnKroneckerProduct ⟜RangeNum
+    Call      ← ⟜RangeNum
   └─╴
-  Unthread ← ∵⊂ : Unthreadm
+  # Unthread! ← ∵⊂ :Unthreadm Mlt~UnKroneckerProduct!^0
+  Unthread! ← ☇1 ∵⊂ : Unthreadm Mlt~UnKroneckerProduct!^0
   # Build a table with the full binary representation of (2^n, 1) indices of an C^n vector
   # Map a qubit reordering into the tensor product row reordering
   # Apply a stage to a current vector state representing n qubits, with the given gates and
