@@ -1,5 +1,3 @@
-┌─╴Utils
-  ~ "Math.ua" ~ Math
+  ~ "Math.ua" ~ RoundAny
   Replace‼! ← ⍜(⊡ ^0|⊂ □ ^0 ^1 ◌) ^2
-  Round!    ← ∵Math~RoundAny ^0
-└─╴
+  Round!    ← eachRoundAny ^0
