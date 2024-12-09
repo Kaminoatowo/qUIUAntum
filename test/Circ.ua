@@ -1,5 +1,5 @@
 ~ "../lib/Math.ua" ~ OverSqrt RoundAny
-~ "../lib/Circ.ua" ~ Reg Subregister Thread! ThreadGate! ThreadReg Unthread!
+~ "../lib/Circ.ua" ~ Reg Subregister Thread! ThreadGate ThreadReg Unthread!
 ~ "../lib/Utils.ua" ~ Replace‼!
 ┌─╴Subregister
   A        ↚ ↯2_1 1_0
@@ -51,14 +51,14 @@
 ┌─╴ThreadGate
   ~ "../lib/Gates.ua" ~ H X Z
   Sqrt     ← OverSqrt 2
-  Try      ← ThreadGate!1 H X
+  Try      ← ThreadGate H_X
   Msg      ← "Testing H kpr X"
   Correct ← ↯4_4 [
     0_Sqrt_0_Sqrt
     Sqrt_0_Sqrt_0
     0_Sqrt_0_(¯ Sqrt)
     Sqrt_0_(¯ Sqrt)_0]
-  Tryi     ← ThreadGate!2 Z H X
+  Tryi     ← ThreadGate Z_H_X
   Msgi     ← "Testing Z kpr H kpr X"
   Correcti ← ↯8_8 [
     0_Sqrt_0_Sqrt_0_0_0_0
