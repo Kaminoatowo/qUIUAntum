@@ -18,3 +18,7 @@ There is the [uiua-math](https://github.com/Omnikar/uiua-math) ([website](https:
 [ ] BV
 [ ] DJ
 [ ] QFT
+
+# Bugs
+- Measurements don't work on even positions (odd indices)
+- Only single qubit measurements -> Multiple qubits measurement
