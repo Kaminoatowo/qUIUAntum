@@ -9,9 +9,9 @@ There is the [uiua-math](https://github.com/Omnikar/uiua-math) ([website](https:
 - Modules
 [X] Tests on Sng complete
 [X] Tests on Math complete
-[ ] Tests on Mlt complete
+[X] Tests on Mlt complete
 [X] Tests on Gates complete
-[ ] Tests on Circ complete
+[X] Tests on Circ complete
 [ ] Tests on Show complete (no tests for the moment)
 
 - Algorithms
@@ -20,5 +20,6 @@ There is the [uiua-math](https://github.com/Omnikar/uiua-math) ([website](https:
 [ ] QFT
 
 # Bugs
-- Measurements don't work on even positions (odd indices)
-- Only single qubit measurements -> Multiple qubits measurement
+- Only single qubit measurements -> Multiple qubits measurement --> There is a way to do that:
+-   First measure: Measure 0 Stage ThreadReg Reg 3 0_2 H_H
+-   Following measure: ⍜⊣(Measure 2 °□) (one at a time)

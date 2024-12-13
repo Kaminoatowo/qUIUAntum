@@ -1,5 +1,8 @@
+# Experimental!
 ~ "../lib/Math.ua" ~ OverSqrt RoundAny
-~ "../lib/Circ.ua" ~ Reg Subregister Thread! ThreadGate ThreadReg Unthread!
+~ "../lib/Circ.ua"
+  ~ QtoTReorder Stage ThreadReg Unthread!
+  ~ Reg Subregister Thread! ThreadGate
 ~ "../lib/Utils.ua" ~ Replace‼!
 ┌─╴Subregister
   A        ↚ ↯2_1 1_0
@@ -87,6 +90,30 @@
     (□ 0)_(□ A)_(□ 1)_(□ A)_(□ 2)_(□ A)
     (□ 3)_(□ A)_(□ 4)_(□ A)_(□ 5)_(□ A)]
 └─╴
+┌─╴QtoTReorder
+  Correct ← 0_2_4_6_8_10_12_14_1_3_5_7_9_11_13_15
+  Try     ← QtoTReorder 4 1_2_3_0
+  Msg     ← "Re arranging 0_1_2_3 to 1_2_3_0"
+└─╴
+┌─╴Stage
+  ~ "../lib/Gates.ua" ~ CNOT H
+  Correct        ← ↯8_1 ⁿ 0.5 0.125_0.125_0.125_0.125_0.125_0.125_0.125_0.125
+  VectorState    ← ↯8_1 1_0_0_0_0_0_0_0
+  Try            ← Stage VectorState 0_1_2 H_H_H
+  Msg            ← "The end vector state is not an equal superposition"
+  Correcti       ← ↯8_1 1_0_0_0_0_0_0_0
+  VectorStatei   ← Stage VectorState 0_1_2 H_H_H
+  Tryi           ← Stage VectorStatei 0_1_2 H_H_H
+  Msgi           ← "Applying the same stage twice did not bring the state back to ground"
+  Sqrt           ← OverSqrt 2
+  Correctii      ← ↯8_1 Sqrt_0_Sqrt_0_0_0_0_0
+  Tryii          ← Stage VectorState 1 H
+  Msgii          ← "The end vector state is not an equal superposition"
+  Correctiii     ← ↯16_1 0_1_0_0_0_0_0_0_0_0_0_0_0_0_0_0
+  VectorStateiii ← ↯16_1 0_0_0_0_0_1_0_0_0_0_0_0_0_0_0
+  Tryiii         ← Stage VectorStateiii 3_1 CNOT
+  Msgiii         ← "starts with qubit 3 & 1 in 1 and apply CNOT from 3 to 1"
+└─╴
 ┌─╴test
   Round ← RoundAny1e10
   # Register instantiation
@@ -111,4 +138,80 @@
   ⍤⟜≍: ∩Round ThreadGate~Correcti ThreadGate~Tryi
   # Unthread
   ⍤⟜≍: ∩Round Unthread~Correct Unthread~Try
+  # QtoTReorder
+  ⍤⟜≍: ∩Round QtoTReorder~Correct QtoTReorder~Try
+  # Stage
+  ⍤⟜≍: ∩Round Stage~Correct Stage~Try
+  ⍤⟜≍: ∩Round Stage~Correcti Stage~Tryi
+  ⍤⟜≍: ∩Round Stage~Correctii Stage~Tryii
+  ⍤⟜≍: ∩Round Stage~Correctiii Stage~Tryiii
+  # Stage + CNOT
+  ~ "../lib/Gates.ua" ~ CNOT
+  ~ "../lib/Mlt.ua" ~ UnKroneckerProduct!
+  ~ "../lib/Circ.ua" ~ Stage
+  # Two qubits CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!1) ↯4_1 1_0_0_0 Stage ↯4_1 1_0_0_0 0_1 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!1) ↯4_1 0_1_0_0 Stage ↯4_1 0_1_0_0 0_1 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!1) ↯4_1 0_0_0_1 Stage ↯4_1 0_0_1_0 0_1 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!1) ↯4_1 0_0_1_0 Stage ↯4_1 0_0_0_1 0_1 CNOT
+  # ---
+  ⍤⟜≍: ∩(UnKroneckerProduct!1) ↯4_1 1_0_0_0 Stage ↯4_1 1_0_0_0 1_0 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!1) ↯4_1 0_0_0_1 Stage ↯4_1 0_1_0_0 1_0 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!1) ↯4_1 0_0_1_0 Stage ↯4_1 0_0_1_0 1_0 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!1) ↯4_1 0_1_0_0 Stage ↯4_1 0_0_0_1 1_0 CNOT
+  # Three qubits CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 1_0_0_0_0_0_0_0 Stage ↯8_1 1_0_0_0_0_0_0_0 0_1 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_1_0_0_0_0_0_0 Stage ↯8_1 0_1_0_0_0_0_0_0 0_1 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_1_0_0_0_0_0 Stage ↯8_1 0_0_1_0_0_0_0_0 0_1 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_1_0_0_0_0 Stage ↯8_1 0_0_0_1_0_0_0_0 0_1 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_1_0 Stage ↯8_1 0_0_0_0_1_0_0_0 0_1 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_0_1 Stage ↯8_1 0_0_0_0_0_1_0_0 0_1 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_1_0_0_0 Stage ↯8_1 0_0_0_0_0_0_1_0 0_1 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_1_0_0 Stage ↯8_1 0_0_0_0_0_0_0_1 0_1 CNOT
+  # ---
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 1_0_0_0_0_0_0_0 Stage ↯8_1 1_0_0_0_0_0_0_0 0_2 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_1_0_0_0_0_0_0 Stage ↯8_1 0_1_0_0_0_0_0_0 0_2 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_1_0_0_0_0_0 Stage ↯8_1 0_0_1_0_0_0_0_0 0_2 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_1_0_0_0_0 Stage ↯8_1 0_0_0_1_0_0_0_0 0_2 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_1_0_0 Stage ↯8_1 0_0_0_0_1_0_0_0 0_2 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_1_0_0_0 Stage ↯8_1 0_0_0_0_0_1_0_0 0_2 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_0_1 Stage ↯8_1 0_0_0_0_0_0_1_0 0_2 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_1_0 Stage ↯8_1 0_0_0_0_0_0_0_1 0_2 CNOT
+  # ---
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 1_0_0_0_0_0_0_0 Stage ↯8_1 1_0_0_0_0_0_0_0 1_2 CNOT
+  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_1_0_0_0_0_0_0 Stage ↯8_1 0_1_0_0_0_0_0_0 1_2 CNOT
+  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_1_0_0_0_0 Stage ↯8_1 0_0_1_0_0_0_0_0 1_2 CNOT
+  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_1_0_0_0_0_0 Stage ↯8_1 0_0_0_1_0_0_0_0 1_2 CNOT
+  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_1_0_0_0 Stage ↯8_1 0_0_0_0_1_0_0_0 1_2 CNOT
+  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_1_0_0 Stage ↯8_1 0_0_0_0_0_1_0_0 1_2 CNOT
+  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_0_1 Stage ↯8_1 0_0_0_0_0_0_1_0 1_2 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_1_0 Stage ↯8_1 0_0_0_0_0_0_0_1 1_2 CNOT
+  # ---
+  # ---
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 1_0_0_0_0_0_0_0 Stage ↯8_1 1_0_0_0_0_0_0_0 1_0 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_1_0_0_0_0_0_0 Stage ↯8_1 0_1_0_0_0_0_0_0 1_0 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_1_0 Stage ↯8_1 0_0_1_0_0_0_0_0 1_0 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_0_1 Stage ↯8_1 0_0_0_1_0_0_0_0 1_0 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_1_0_0_0 Stage ↯8_1 0_0_0_0_1_0_0_0 1_0 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_1_0_0 Stage ↯8_1 0_0_0_0_0_1_0_0 1_0 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_1_0_0_0_0_0 Stage ↯8_1 0_0_0_0_0_0_1_0 1_0 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_1_0_0_0_0 Stage ↯8_1 0_0_0_0_0_0_0_1 1_0 CNOT
+  # ---
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 1_0_0_0_0_0_0_0 Stage ↯8_1 1_0_0_0_0_0_0_0 2_0 CNOT
+  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_1_0_0 Stage ↯8_1 0_1_0_0_0_0_0_0 2_0 CNOT
+  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_1_0_0_0_0_0 Stage ↯8_1 0_0_1_0_0_0_0_0 2_0 CNOT
+  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_0_1 Stage ↯8_1 0_0_0_1_0_0_0_0 2_0 CNOT
+  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_1_0_0_0 Stage ↯8_1 0_0_0_0_1_0_0_0 2_0 CNOT
+  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_1_0_0_0_0_0_0 Stage ↯8_1 0_0_0_0_0_1_0_0 2_0 CNOT
+  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_1_0 Stage ↯8_1 0_0_0_0_0_0_1_0 2_0 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_1_0_0_0_0 Stage ↯8_1 0_0_0_0_0_0_0_1 2_0 CNOT
+  # ---
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 1_0_0_0_0_0_0_0 Stage ↯8_1 1_0_0_0_0_0_0_0 2_1 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_1_0_0_0_0 Stage ↯8_1 0_1_0_0_0_0_0_0 2_1 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_1_0_0_0_0_0 Stage ↯8_1 0_0_1_0_0_0_0_0 2_1 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_1_0_0_0_0_0_0 Stage ↯8_1 0_0_0_1_0_0_0_0 2_1 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_1_0_0_0 Stage ↯8_1 0_0_0_0_1_0_0_0 2_1 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_0_1 Stage ↯8_1 0_0_0_0_0_1_0_0 2_1 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_1_0 Stage ↯8_1 0_0_0_0_0_0_1_0 2_1 CNOT
+  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_1_0_0 Stage ↯8_1 0_0_0_0_0_0_0_1 2_1 CNOT
 └─╴

@@ -1,3 +1,4 @@
+#Experimental!
 ~ "Sng.ua" ~ Qground
 ~ "Math.ua" ~ KroneckerProduct ScalarProduct
 ~ "Mlt.ua" ~ UnKroneckerProduct!
@@ -23,7 +24,7 @@ Thread! ← ⍥(KroneckerProduct) ^0
 ThreadReg ← /KroneckerProduct ArrayReg
 # Thread a gate set into a single operation
 # Input: gate set
-ThreadGate ← + 0 /(KroneckerProduct)
+ThreadGate ← + 0 /KroneckerProduct
 # Unthread a vector state and produce a new register
 # Input: number of qubits - 1
 #        vector state (register) 
@@ -51,12 +52,14 @@ QtoTReorder ← °⋯≡⇌°⍉⊏:(⍉TensorIndex)
   NumQubits   ← ₙ2 ⧻
   Qlist       ← ⇡ NumQubits
   OtherQubits ← keep: ⟜(¬∈:)
-  Ids         ← resh join : 2_2 : I len  #⊞=.⇡ × 2 ⧻
-  TotalGate = ThreadGate
-  F = underpop(TotalGate join:) fork(join:)(Ids) by OtherQubits Qlist
-  G = by(⊏:) underpop(QtoTReorder bylen join:by OtherQubits) on Qlist
+Ids = ⊞=.⇡ × 2 ⧻
+  HowManyGates = ⨬()(ThreadGate) by(>2⧻△)
+  TotalGate = ⨬(/◇KroneckerProduct □__2 HowManyGates :)(HowManyGates ◌) by(=0⧻)
+  F = underpop(TotalGate) fork(join:)(Ids) by OtherQubits Qlist
+  G = : on(⍜⊏◌) : resh : 0 join : 1⊸⧻ : underpop(QtoTReorder bylen join:by OtherQubits) on Qlist
   H = ↯ join by(: 1 len) select : ScalarProduct ◌ fork(F)(G)
   Call        ← ↯ join by(: 1 len) select : ScalarProduct ◌ fork(F)(G)
+  #Call = ↯ join by(: 1 len) select : ScalarProduct ◌ fork(F)(G)
 └─╴
 Stage ← Stagem
 # Replaces every occurance of 0 with ⍺ in ⍵. ⍺ must be of shape 1.

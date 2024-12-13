@@ -1,3 +1,4 @@
+#Experimental!
 ~ "Math.ua" ~ Normalize
 ---MeasHelperm
 ~ "Sng.ua" ~ Qground Qexcited
@@ -17,4 +18,4 @@ Indices       ← ⇡ ⧻
 BinBasis = TensorIndex NumQubits
 Call =  MeasHelper by(underpop(fork(Indices)(BinBasis)))
 ---
-Measure = join⍜◌(box Normalize) join ∩□ Measurem
+Measure = join⍜◌(box Normalize) boxjoin ∩□ Measurem
