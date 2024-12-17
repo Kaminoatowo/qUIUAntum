@@ -52,7 +52,7 @@ QtoTReorder ← °⋯≡⇌°⍉⊏:(⍉TensorIndex)
   NumQubits   ← ₙ2 ⧻
   Qlist       ← ⇡ NumQubits
   OtherQubits ← keep: ⟜(¬∈:)
-Ids = ⊞=.⇡ × 2 ⧻
+  Ids = ⊞=.⇡ × 2 ⧻
   HowManyGates = ⨬()(ThreadGate) by(>2⧻△)
   TotalGate = ⨬(/◇KroneckerProduct □__2 HowManyGates :)(HowManyGates ◌) by(=0⧻)
   F = underpop(TotalGate) fork(join:)(Ids) by OtherQubits Qlist
