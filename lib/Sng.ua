@@ -1,6 +1,7 @@
 ~ "Math.ua"
 ~ Normalize
 ~ ScalarProduct
+~ IExp
   # Ground state |0>
   Qground ← ↯2_1 1_0
   # Excited state |1>
@@ -15,7 +16,8 @@
   # Input: Bloch angles, in order theta and phi
   # theta in [0, π]
   # phi in [0, τ]
-  Bloch ← ScalarProduct Qstarter ×⊂1ℂ⊃∿(∿+η):⊂⊃(∿+η)∿÷2
+  #Bloch ← ScalarProduct Qstarter ×⊂1ℂ⊃∿(∿+η):⊂⊃(∿+η)∿÷2
+  Bloch ← ScalarProduct Qstarter × ⍜◌(⊂1IExp) ⊂⊃(∿+η)∿ div 2
   # Projector operator to 0
   Pground ← ↯2_2 1_0_0_0
   # Projector operator to 1

@@ -1,5 +1,5 @@
 ~ "Math.ua"
-  ~ Exp
+  ~ IExp Exp
   ~ LHCD
   ~ OvSqTwo
   ~ RHCD
@@ -8,7 +8,7 @@
 I ← ⊞=.⇡2
 # Global phase
 # Input: phase in [0, τ]
-G ← ×I Exp × i
+G ← ×I IExp
 # Pauli X gate
 X ← ↯2_2 0_1_1_0
 # Pauli Y gate
@@ -22,31 +22,31 @@ V ← ÷2 ↯2_2 (ℂ 1 1)_(ℂ 1 ¯1)_(ℂ ¯1 1)_(ℂ 1 1)
 # Hadamard gate
 H ← ÷√2 ↯2_2 1_1_1_¯1
 # T gate - sqrt S
-T ← ↯2_2 1_0_0_(Exp × i ÷4 π)
+T ← ↯2_2 1_0_0_(IExp ÷4 π)
 # Phase shift gate
 # Input: phase in [0, τ]
-P ← ↯ 2_2 ⊂ 1_0_0 Exp × i
+P ← ↯ 2_2 ⊂ 1_0_0 IExp
 # Rotation around X axis
 # Input: phase in [0, τ]
-Rx ← ↯2_2⊂⟜⇌⊂:× ¯ i SinAndCos ÷2
+Rx =⊟ ⟜⇌ ⊂ ×¯i SinAndCos ÷2
 # Rotation around Y axis
 # Input: phase in [0, τ]
-Ry ← ↯2_2⊂:⟜(⊢⇌)⊂⊂:⟜¯SinAndCos ÷2
+Ry = ⊟ : ⟜(⇌⍜(⊢)¯) ⊂ SinAndCos ÷2
 # Rotation around Z axis
 # Input: phase in [0, τ]
-Rz ← ↯2_2 ⇌⊂⇌⊂ 0_0 ∩Exp ⟜¯× i ÷ 2
+Rz = ⊟ ⇌ ∩(join 0 IExp) ⊸¯ ÷ 2
 # Generalized rotation
-# Input: theta phi lamba
+# Input: theta phi lamda
 # theta in [0, π]
 # phi in [0, τ]
 # lamda in [0, τ]
 ┌─╴Um
-  MulExtreme  ← ∘⊙⊙∘ ×
-  ForkBetween ← ⊙⊙⊃¯∘⟜×
-  JoinStack   ← ⊂:⊙⊂: ⊙⊙⊂
-  Call        ← JoinStack ForkBetween MulExtreme SinAndCos÷2⊙(Exp × i +)⊙⊙⟜(Exp × ¯ i) # SinAndCos÷2
+  PrepareData = ⊓(SinAndCos÷2)(⊃(IExp ¯)(IExp +) :)
+  MulExtreme  ← ⍜◌( ⊃(⊢)(×)) :
+  ForkBetween ← ⍜◌(⊃(¯)(∘)×) :
+  Call        ← ∩⊟ MulExtreme ForkBetween PrepareData
 └─╴
-U ← ↯2_2 Um
+U ← ⊟⇌ Um
 # Controlled NOT gate
 CNOT ← ↯4_4 [
   1_0_0_0
@@ -75,7 +75,7 @@ CZ ← ↯4_4 [
   0_0_0_¯1]
 # Controlled phase
 # Input: phase in [0, τ]
-CP ← ↯4_4 ⊂ 1_0_0_0_0_1_0_0_0_0_1_0_0_0_0 Exp × i
+CP ← ↯4_4 ⊂ 1_0_0_0_0_1_0_0_0_0_1_0_0_0_0 IExp
 # Controlled phase S
 CS ← ↯4_4 [
   1_0_0_0
@@ -85,44 +85,40 @@ CS ← ↯4_4 [
 # XX interaction
 # Input: phase in [0, τ]
 ┌─╴XXm
-  Prepare ↚ × ¯ i SinAndCos ÷2
-  XOOY    ↚ ⊂:⊂ 0_0
-  OYXO    ↚ ↻2
-  Reorder ↚ ⊂:⊂⊂∩(⇌.):
-  Call    ← Reorder⟜OYXO XOOY Prepare
+  Prepare ↚ ¯×i SinAndCos ÷2
+  MakeLines =~ ⊃(⊂⇌:)(⇌⊂⊙⇌)
+  RevAndJoin =~ ⊂⟜⇌♭⊟
+  BothZero =~ ∩(⊂0)
+  Call =  RevAndJoin MakeLines BothZero Prepare
 └─╴
-XX ← ↯4_4 XXm # (⊂⇌⊂ 0_0)
+XX ← ↯4_4 XXm
 # YY interaction
 # Input: phase in [0, τ]
 ┌─╴YYm
-  Prepare ↚ ⊃¯∘(× i) SinAndCos ÷2
-  DupLast ↚ ⊙⊙.
-  XOOYp   ↚ ⊂:⊂ 0_0
-  Move    ↚ ⊙:
-  OYmXO   ↚ ⊂ 0⇌⊂⊂ 0
-  Reorder ↚ ⊂:⊂⊂∩(⇌.)
-  Call    ← Reorder ⊙XOOYp ⇌OYmXO Move DupLast Prepare
+  Prepare ↚ ⊃¯(×i) SinAndCos ÷2
+  BothZero =~ ∩(⊂0)
+  MakeLines =~ ⊃(⊂⇌:BothZero◌)(⊂:⇌BothZero◌:)
+  RevAndJoin =~ ⊂⟜⇌♭⊟
+  Call = RevAndJoin MakeLines Prepare
 └─╴
 YY ← ↯4_4 YYm
 # ZZ interaction
 # Input: phase in [0, τ]
 ┌─╴ZZm
-  Prepare  ↚ ∩Exp ⟜¯× i ÷2
-  TwoZeros ↚ ∩(⊂ :0_0)
-  XmOOO    ↚ ⊂ :0
-  OXpOO    ↚ ⇌⊂ 0
-  Reorder  ↚ ⊂:⊂⊂∩(⇌.):
-  Call     ← Reorder XmOOO : OXpOO TwoZeros Prepare
+  Prepare  ↚ ∩IExp ⟜¯ ÷2
+  BothZero =~ ∩(⊂0_0_0)
+  RevAndJoin =~ ⊂:⟜⇌♭
+  Call     ← RevAndJoin ⊂↻1 BothZero Prepare
 └─╴
 ZZ ← ↯4_4 ZZm
 # XY Interaction (XX + YY)
 # Input: phase in [0, τ]
 ┌─╴XYm
-  Prepare ↚ × ¯ i SinAndCos ÷2
+  Prepare ↚ ¯×i SinAndCos ÷2
   OneVec  ↚ 1_0_0_0
-  OYXO    ↚ ⊂ 0⇌⊂⊂ 0
-  Reorder ↚ ⊂:⊙⊂
-  Call    ← Reorder ⊃⇌∘OneVec ⊂⟜⇌OYXO Prepare
+  BothZero =~ ∩(⊂0)
+  RevAndJoin =~ ⊂⟜⇌
+  Call = RevAndJoin ⊂ OneVec ⊂:⇌BothZero Prepare
 └─╴
 XY ← ↯4_4 XYm
 # Double Controlled NOT
@@ -164,10 +160,11 @@ SqImSwap ← ↯4_4 [
 # Swap raised to the a-th power
 # Input: a-th power
 ┌─╴AthSwapm
-  Prepare  ↚ ∩(÷2+1)⊃¯∘ Exp × i × π
-  AddZeros ↚ ⇌⊂ 0⇌⊂ 0
+  Prepare  ↚ ∩(÷2+1)⊸¯ IExp × π
+  BothZero =~ ∩(⇌⊂0)
   OneVec   ↚ 1_0_0_0
-  Call     ← ⊂ OneVec ⇌ ⊂ OneVec ⊂⇌. AddZeros ⊂ Prepare
+  RevAndJoin =~ ⊂⟜⇌
+  Call     ← RevAndJoin ⊂ OneVec ⊂⇌ BothZero Prepare
 └─╴
 AthSwap ← ↯4_4 AthSwapm
 # Fredkin (Control SWAP)
@@ -196,9 +193,7 @@ TOF ← ↯8_8 [
 ┌─╴GCTRm
   ID     ↚ ⊞=.⇡
   GetDim ↚ ⁿ : 2+ ₙ2 ⧻
-  # ZerosMat ↚ ↯ : 0 ⊂.× 2 # ⊸⧻
   ReplaceSubMatrix ↚ ⍜↙◌ ¯△,
   Call             ← ReplaceSubMatrix ID GetDim,
-  # not finished yet
 └─╴
 GCTR ← GCTRm

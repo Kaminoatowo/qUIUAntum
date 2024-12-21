@@ -9,8 +9,8 @@
     Call ↚ ⊕∘ ⊸Mask
   └─╴
   GCDColRows ← ⊃(/∵GCD)(≡/GCD) Partition
-  CheckLen   ↚ ⨬(GCDColRows)("Len is 2") ⊸(≍ 2 ⧻)
+  Auxiliary = |1 /◇⊂ ⨬(⍚ Auxiliary ⊟ ∩ □ GCDColRows ♭|∘)≍2⧻.
   #  Undo Kronecker product naively for vector states
   #  Input: number of qubits - 1
   #         vector state
-  UnKroneckerProduct! ← ↯⊂:1⊸⧻≡□≡Normalize ↯ ⊂+1^0 2_1 ⍥(⊂:)^0 ⍥(CheckLen)^0 ♭
+  UnKPr ← ↯⊂:1⊸⧻≡ □ ≡Normalize ↯⊂:2_1⊸(div2⧻) Auxiliary

@@ -5,7 +5,7 @@
 ~ Bloch
 ~ Qsuper
 ---Bloch
-  Correct ← 0
+  Correct ← ℂ0 0
   Operator ← ⊢ ScalarProduct
   Try ← Operator Bloch π 0 Bloch 0 0
   Msg ← "Cross product of 2 opposing vectors should be 0"

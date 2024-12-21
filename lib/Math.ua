@@ -3,6 +3,7 @@
   Conjugate        ← ⍜°ℂ¯
   Dagger           ← ⍉Conjugate
   Exp              ← ⁿ:e
+  IExp             ← Exp×i
   RoundAny         ← ⍜×⁅
   RoundEsa         ← RoundAny 1e6
   SinAndCos        ← ∩RoundEsa ⊃(∿)(∿+η)
@@ -11,7 +12,7 @@
   OvSqTwo          ← OverSqrt 2
   RealPart         ← ◌°ℂ
   ImPart           ← ◌:°ℂ
-  ScalarProduct    ← RealPart/+×
+  ScalarProduct    ← /+× # Can be complex
   Normalize        ← RealPart÷√:⟜(ScalarProduct⟜Conjugate) # this works for ket vectors
   SignToBit        ← ÷2+1±
   MixOrPure        ← =1⊢/+

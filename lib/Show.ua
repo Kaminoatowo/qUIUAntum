@@ -10,8 +10,8 @@
   # Input: quantum state
   ---Qm
     WhichSign ↚ ⨬("-")("+")
-    GetSign ↚ ⊃(WhichSign SignToBit RealPart ⊢ ⇌)(⨬¯∘ ⊸(≥0 RealPart))
-    MixFormat ↚ $"(_) |0⟩ _ (_) |1⟩"
+    GetSign ↚ ⊃(WhichSign SignToBit RealPart ⊢)(×± RealPart.)
+    MixFormat ↚ $"_ |0⟩ _ _ |1⟩"
     Mix ↚ MixFormat⊃(⊢ ScalarProduct Qground)(GetSign⊢ ScalarProduct Qexcited)
     PureFormat ↚ ⊢ ⨬("|1⟩")("|0⟩")
     Pure ↚ PureFormat RealPart ⊢

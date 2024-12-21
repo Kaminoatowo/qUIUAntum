@@ -1,7 +1,7 @@
 # Experimental!
 ~ "../lib/Math.ua" ~ OverSqrt RoundAny
 ~ "../lib/Circ.ua"
-  ~ QtoTReorder Stage ThreadReg Unthread!
+  ~ QtoTReorder Stage ThreadReg Unthread
   ~ Reg Subregister Thread! ThreadGate
 ~ "../lib/Utils.ua" ~ Replace‼!
 ┌─╴Subregister
@@ -75,7 +75,7 @@
 └─╴
 ┌─╴Unthread
   A       ← ↯ 2_1 1_0
-  Try     ← Unthread!2 ↯ 8_1 1_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0
+  Try     ← Unthread ↯ 8_1 1_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0
   Correct ← ↯ 3_2 (□ 0)_(□ A)_(□ 1)_(□ A)_(□ 2)_(□ A)
   Msg     ← "Unthreading a vs into the states defined above"
 └─╴
@@ -147,71 +147,71 @@
   ⍤⟜≍: ∩Round Stage~Correctiii Stage~Tryiii
   # Stage + CNOT
   ~ "../lib/Gates.ua" ~ CNOT
-  ~ "../lib/Mlt.ua" ~ UnKroneckerProduct!
+  ~ "../lib/Mlt.ua" ~ UnKPr
   ~ "../lib/Circ.ua" ~ Stage
   # Two qubits CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!1) ↯4_1 1_0_0_0 Stage ↯4_1 1_0_0_0 0_1 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!1) ↯4_1 0_1_0_0 Stage ↯4_1 0_1_0_0 0_1 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!1) ↯4_1 0_0_0_1 Stage ↯4_1 0_0_1_0 0_1 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!1) ↯4_1 0_0_1_0 Stage ↯4_1 0_0_0_1 0_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯4_1 1_0_0_0 Stage ↯4_1 1_0_0_0 0_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯4_1 0_1_0_0 Stage ↯4_1 0_1_0_0 0_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯4_1 0_0_0_1 Stage ↯4_1 0_0_1_0 0_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯4_1 0_0_1_0 Stage ↯4_1 0_0_0_1 0_1 CNOT
   # ---
-  ⍤⟜≍: ∩(UnKroneckerProduct!1) ↯4_1 1_0_0_0 Stage ↯4_1 1_0_0_0 1_0 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!1) ↯4_1 0_0_0_1 Stage ↯4_1 0_1_0_0 1_0 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!1) ↯4_1 0_0_1_0 Stage ↯4_1 0_0_1_0 1_0 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!1) ↯4_1 0_1_0_0 Stage ↯4_1 0_0_0_1 1_0 CNOT
+  ⍤⟜≍: ∩UnKPr ↯4_1 1_0_0_0 Stage ↯4_1 1_0_0_0 1_0 CNOT
+  ⍤⟜≍: ∩UnKPr ↯4_1 0_0_0_1 Stage ↯4_1 0_1_0_0 1_0 CNOT
+  ⍤⟜≍: ∩UnKPr ↯4_1 0_0_1_0 Stage ↯4_1 0_0_1_0 1_0 CNOT
+  ⍤⟜≍: ∩UnKPr ↯4_1 0_1_0_0 Stage ↯4_1 0_0_0_1 1_0 CNOT
   # Three qubits CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 1_0_0_0_0_0_0_0 Stage ↯8_1 1_0_0_0_0_0_0_0 0_1 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_1_0_0_0_0_0_0 Stage ↯8_1 0_1_0_0_0_0_0_0 0_1 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_1_0_0_0_0_0 Stage ↯8_1 0_0_1_0_0_0_0_0 0_1 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_1_0_0_0_0 Stage ↯8_1 0_0_0_1_0_0_0_0 0_1 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_1_0 Stage ↯8_1 0_0_0_0_1_0_0_0 0_1 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_0_1 Stage ↯8_1 0_0_0_0_0_1_0_0 0_1 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_1_0_0_0 Stage ↯8_1 0_0_0_0_0_0_1_0 0_1 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_1_0_0 Stage ↯8_1 0_0_0_0_0_0_0_1 0_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 1_0_0_0_0_0_0_0 Stage ↯8_1 1_0_0_0_0_0_0_0 0_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_1_0_0_0_0_0_0 Stage ↯8_1 0_1_0_0_0_0_0_0 0_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_1_0_0_0_0_0 Stage ↯8_1 0_0_1_0_0_0_0_0 0_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_1_0_0_0_0 Stage ↯8_1 0_0_0_1_0_0_0_0 0_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_0_0_1_0 Stage ↯8_1 0_0_0_0_1_0_0_0 0_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_0_0_0_1 Stage ↯8_1 0_0_0_0_0_1_0_0 0_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_1_0_0_0 Stage ↯8_1 0_0_0_0_0_0_1_0 0_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_0_1_0_0 Stage ↯8_1 0_0_0_0_0_0_0_1 0_1 CNOT
   # ---
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 1_0_0_0_0_0_0_0 Stage ↯8_1 1_0_0_0_0_0_0_0 0_2 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_1_0_0_0_0_0_0 Stage ↯8_1 0_1_0_0_0_0_0_0 0_2 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_1_0_0_0_0_0 Stage ↯8_1 0_0_1_0_0_0_0_0 0_2 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_1_0_0_0_0 Stage ↯8_1 0_0_0_1_0_0_0_0 0_2 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_1_0_0 Stage ↯8_1 0_0_0_0_1_0_0_0 0_2 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_1_0_0_0 Stage ↯8_1 0_0_0_0_0_1_0_0 0_2 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_0_1 Stage ↯8_1 0_0_0_0_0_0_1_0 0_2 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_1_0 Stage ↯8_1 0_0_0_0_0_0_0_1 0_2 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 1_0_0_0_0_0_0_0 Stage ↯8_1 1_0_0_0_0_0_0_0 0_2 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_1_0_0_0_0_0_0 Stage ↯8_1 0_1_0_0_0_0_0_0 0_2 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_1_0_0_0_0_0 Stage ↯8_1 0_0_1_0_0_0_0_0 0_2 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_1_0_0_0_0 Stage ↯8_1 0_0_0_1_0_0_0_0 0_2 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_0_1_0_0 Stage ↯8_1 0_0_0_0_1_0_0_0 0_2 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_1_0_0_0 Stage ↯8_1 0_0_0_0_0_1_0_0 0_2 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_0_0_0_1 Stage ↯8_1 0_0_0_0_0_0_1_0 0_2 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_0_0_1_0 Stage ↯8_1 0_0_0_0_0_0_0_1 0_2 CNOT
   # ---
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 1_0_0_0_0_0_0_0 Stage ↯8_1 1_0_0_0_0_0_0_0 1_2 CNOT
-  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_1_0_0_0_0_0_0 Stage ↯8_1 0_1_0_0_0_0_0_0 1_2 CNOT
-  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_1_0_0_0_0 Stage ↯8_1 0_0_1_0_0_0_0_0 1_2 CNOT
-  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_1_0_0_0_0_0 Stage ↯8_1 0_0_0_1_0_0_0_0 1_2 CNOT
-  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_1_0_0_0 Stage ↯8_1 0_0_0_0_1_0_0_0 1_2 CNOT
-  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_1_0_0 Stage ↯8_1 0_0_0_0_0_1_0_0 1_2 CNOT
-  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_0_1 Stage ↯8_1 0_0_0_0_0_0_1_0 1_2 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_1_0 Stage ↯8_1 0_0_0_0_0_0_0_1 1_2 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 1_0_0_0_0_0_0_0 Stage ↯8_1 1_0_0_0_0_0_0_0 1_2 CNOT
+  # ⍤⟜≍: ∩UnKPr ↯8_1 0_1_0_0_0_0_0_0 Stage ↯8_1 0_1_0_0_0_0_0_0 1_2 CNOT
+  # ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_1_0_0_0_0 Stage ↯8_1 0_0_1_0_0_0_0_0 1_2 CNOT
+  # ⍤⟜≍: ∩UnKPr ↯8_1 0_0_1_0_0_0_0_0 Stage ↯8_1 0_0_0_1_0_0_0_0 1_2 CNOT
+  # ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_1_0_0_0 Stage ↯8_1 0_0_0_0_1_0_0_0 1_2 CNOT
+  # ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_0_1_0_0 Stage ↯8_1 0_0_0_0_0_1_0_0 1_2 CNOT
+  # ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_0_0_0_1 Stage ↯8_1 0_0_0_0_0_0_1_0 1_2 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_0_0_1_0 Stage ↯8_1 0_0_0_0_0_0_0_1 1_2 CNOT
   # ---
   # ---
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 1_0_0_0_0_0_0_0 Stage ↯8_1 1_0_0_0_0_0_0_0 1_0 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_1_0_0_0_0_0_0 Stage ↯8_1 0_1_0_0_0_0_0_0 1_0 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_1_0 Stage ↯8_1 0_0_1_0_0_0_0_0 1_0 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_0_1 Stage ↯8_1 0_0_0_1_0_0_0_0 1_0 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_1_0_0_0 Stage ↯8_1 0_0_0_0_1_0_0_0 1_0 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_1_0_0 Stage ↯8_1 0_0_0_0_0_1_0_0 1_0 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_1_0_0_0_0_0 Stage ↯8_1 0_0_0_0_0_0_1_0 1_0 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_1_0_0_0_0 Stage ↯8_1 0_0_0_0_0_0_0_1 1_0 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 1_0_0_0_0_0_0_0 Stage ↯8_1 1_0_0_0_0_0_0_0 1_0 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_1_0_0_0_0_0_0 Stage ↯8_1 0_1_0_0_0_0_0_0 1_0 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_0_0_1_0 Stage ↯8_1 0_0_1_0_0_0_0_0 1_0 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_0_0_0_1 Stage ↯8_1 0_0_0_1_0_0_0_0 1_0 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_1_0_0_0 Stage ↯8_1 0_0_0_0_1_0_0_0 1_0 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_0_1_0_0 Stage ↯8_1 0_0_0_0_0_1_0_0 1_0 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_1_0_0_0_0_0 Stage ↯8_1 0_0_0_0_0_0_1_0 1_0 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_1_0_0_0_0 Stage ↯8_1 0_0_0_0_0_0_0_1 1_0 CNOT
   # ---
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 1_0_0_0_0_0_0_0 Stage ↯8_1 1_0_0_0_0_0_0_0 2_0 CNOT
-  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_1_0_0 Stage ↯8_1 0_1_0_0_0_0_0_0 2_0 CNOT
-  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_1_0_0_0_0_0 Stage ↯8_1 0_0_1_0_0_0_0_0 2_0 CNOT
-  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_0_1 Stage ↯8_1 0_0_0_1_0_0_0_0 2_0 CNOT
-  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_1_0_0_0 Stage ↯8_1 0_0_0_0_1_0_0_0 2_0 CNOT
-  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_1_0_0_0_0_0_0 Stage ↯8_1 0_0_0_0_0_1_0_0 2_0 CNOT
-  # ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_1_0 Stage ↯8_1 0_0_0_0_0_0_1_0 2_0 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_1_0_0_0_0 Stage ↯8_1 0_0_0_0_0_0_0_1 2_0 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 1_0_0_0_0_0_0_0 Stage ↯8_1 1_0_0_0_0_0_0_0 2_0 CNOT
+  # ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_0_1_0_0 Stage ↯8_1 0_1_0_0_0_0_0_0 2_0 CNOT
+  # ⍤⟜≍: ∩UnKPr ↯8_1 0_0_1_0_0_0_0_0 Stage ↯8_1 0_0_1_0_0_0_0_0 2_0 CNOT
+  # ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_0_0_0_1 Stage ↯8_1 0_0_0_1_0_0_0_0 2_0 CNOT
+  # ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_1_0_0_0 Stage ↯8_1 0_0_0_0_1_0_0_0 2_0 CNOT
+  # ⍤⟜≍: ∩UnKPr ↯8_1 0_1_0_0_0_0_0_0 Stage ↯8_1 0_0_0_0_0_1_0_0 2_0 CNOT
+  # ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_0_0_1_0 Stage ↯8_1 0_0_0_0_0_0_1_0 2_0 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_1_0_0_0_0 Stage ↯8_1 0_0_0_0_0_0_0_1 2_0 CNOT
   # ---
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 1_0_0_0_0_0_0_0 Stage ↯8_1 1_0_0_0_0_0_0_0 2_1 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_1_0_0_0_0 Stage ↯8_1 0_1_0_0_0_0_0_0 2_1 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_1_0_0_0_0_0 Stage ↯8_1 0_0_1_0_0_0_0_0 2_1 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_1_0_0_0_0_0_0 Stage ↯8_1 0_0_0_1_0_0_0_0 2_1 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_1_0_0_0 Stage ↯8_1 0_0_0_0_1_0_0_0 2_1 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_0_1 Stage ↯8_1 0_0_0_0_0_1_0_0 2_1 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_0_1_0 Stage ↯8_1 0_0_0_0_0_0_1_0 2_1 CNOT
-  ⍤⟜≍: ∩(UnKroneckerProduct!2) ↯8_1 0_0_0_0_0_1_0_0 Stage ↯8_1 0_0_0_0_0_0_0_1 2_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 1_0_0_0_0_0_0_0 Stage ↯8_1 1_0_0_0_0_0_0_0 2_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_1_0_0_0_0 Stage ↯8_1 0_1_0_0_0_0_0_0 2_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_1_0_0_0_0_0 Stage ↯8_1 0_0_1_0_0_0_0_0 2_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_1_0_0_0_0_0_0 Stage ↯8_1 0_0_0_1_0_0_0_0 2_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_1_0_0_0 Stage ↯8_1 0_0_0_0_1_0_0_0 2_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_0_0_0_1 Stage ↯8_1 0_0_0_0_0_1_0_0 2_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_0_0_1_0 Stage ↯8_1 0_0_0_0_0_0_1_0 2_1 CNOT
+  ⍤⟜≍: ∩UnKPr ↯8_1 0_0_0_0_0_1_0_0 Stage ↯8_1 0_0_0_0_0_0_0_1 2_1 CNOT
 └─╴

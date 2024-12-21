@@ -1,7 +1,7 @@
 #Experimental!
 ~ "Sng.ua" ~ Qground
 ~ "Math.ua" ~ KroneckerProduct ScalarProduct
-~ "Mlt.ua" ~ UnKroneckerProduct!
+~ "Mlt.ua" ~ UnKPr
 # Replace element in given position of given boxed array with given element
 # Input: index 
 #        element
@@ -33,8 +33,7 @@ ThreadGate ← + 0 /KroneckerProduct
   RangeNum  ← ↯ ⊂ :1 ⟜(∵□ ⇡) NumQubits
   Call      ← ⟜RangeNum
 └─╴
-# Unthread! ← ∵⊂ :Unthreadm UnKroneckerProduct!^0
-Unthread! ← ☇1 ∵⊂ : Unthreadm UnKroneckerProduct!^0
+Unthread ← ☇1 ∵⊂ : Unthreadm UnKPr
 # Build a table with the full binary representation of (2^n, 1) indices of an C^n vector
 # Input: 2^(number of qubits)
 TensorIndex ← ≡⇌⋯⇡ⁿ :2
