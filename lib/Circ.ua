@@ -16,9 +16,8 @@ Reg ← ⍉↯⊂2⟜(⊂↯⊂:1 ⟜⇡)⟜(↯ : □Qground ⊂ :1)
 #        register
 Subregister ← ⊏
 # Thread a set of Hilbert space entities into a larger Hilbert space entity
-# Input: Number of qubits - 1
-#        Qubits
-Thread! ← ⍥(KroneckerProduct) ^0
+# Input: Qubits
+Thread ← /KroneckerProduct
 # Thread a (filtered) register into a vector state
 # Input: register
 ThreadReg ← /KroneckerProduct ArrayReg
@@ -26,8 +25,7 @@ ThreadReg ← /KroneckerProduct ArrayReg
 # Input: gate set
 ThreadGate ← + 0 /KroneckerProduct
 # Unthread a vector state and produce a new register
-# Input: number of qubits - 1
-#        vector state (register) 
+# Input: vector state (register) 
 ┌─╴Unthreadm
   NumQubits ← ⧻
   RangeNum  ← ↯ ⊂ :1 ⟜(∵□ ⇡) NumQubits
@@ -41,25 +39,23 @@ TensorIndex ← ≡⇌⋯⇡ⁿ :2
 # Input: number of qubits
 #        index reordering
 QtoTReorder ← °⋯≡⇌°⍉⊏:(⍉TensorIndex)
+┌─╴Stagem
+  NumQubits   ← ₙ2 ⧻
+  Qlist       ← ⇡ NumQubits
+  OtherQubits ← ▽: ⟜(¬∈:)
+  Ids = ⊞=.⇡ × 2 ⧻
+  HowManyGates = ⍢(ThreadGate|>2⧻△) 
+  TensorInd = QtoTReorder ⊸⧻ ⊂:⊸ OtherQubits
+  TotalGate = ⨬(/◇KroneckerProduct □__2 HowManyGates :)(HowManyGates ◌) ⊸(=0⧻)
+  F = ⍜◌(TotalGate) ⊃(⊂:)(Ids) ⊸ OtherQubits Qlist
+  G = : ⟜(⍜⊏◌) : ×0°△ ⍜◌: ⊸△ ⍜◌TensorInd ⟜ Qlist
+  Call ← ↯ ⊂ ⊸(: 1 ⧻) ⊏ : ScalarProduct ◌ ⊃F G
+└─╴
 # Apply a stage to a current vector state representing n qubits, with the given gates and
 # a stated gate-dependent reordering (reordering a C^2 vector is less expensive than the gates)
 # Input: vector state
-#        index of qubit to apply the gate
-#        gate
-┌─╴Stagem
-  ~ "Gates.ua" ~ I
-  NumQubits   ← ₙ2 ⧻
-  Qlist       ← ⇡ NumQubits
-  OtherQubits ← keep: ⟜(¬∈:)
-  Ids = ⊞=.⇡ × 2 ⧻
-  HowManyGates = ⨬()(ThreadGate) by(>2⧻△)
-  TotalGate = ⨬(/◇KroneckerProduct □__2 HowManyGates :)(HowManyGates ◌) by(=0⧻)
-  F = underpop(TotalGate) fork(join:)(Ids) by OtherQubits Qlist
-  G = : on(⍜⊏◌) : resh : 0 join : 1⊸⧻ : underpop(QtoTReorder bylen join:by OtherQubits) on Qlist
-  H = ↯ join by(: 1 len) select : ScalarProduct ◌ fork(F)(G)
-  Call        ← ↯ join by(: 1 len) select : ScalarProduct ◌ fork(F)(G)
-  #Call = ↯ join by(: 1 len) select : ScalarProduct ◌ fork(F)(G)
-└─╴
+#        index of qubit(s) to apply the gate(s)
+#        gate(s)
 Stage ← Stagem
 # Replaces every occurance of 0 with ⍺ in ⍵. ⍺ must be of shape 1.
 # Replaces every instance of 0 in ⍵ with the identity matrix

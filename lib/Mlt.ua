@@ -11,6 +11,5 @@
   GCDColRows ← ⊃(/∵GCD)(≡/GCD) Partition
   Auxiliary = |1 /◇⊂ ⨬(⍚ Auxiliary ⊟ ∩ □ GCDColRows ♭|∘)≍2⧻.
   #  Undo Kronecker product naively for vector states
-  #  Input: number of qubits - 1
-  #         vector state
+  #  Input: vector state
   UnKPr ← ↯⊂:1⊸⧻≡ □ ≡Normalize ↯⊂:2_1⊸(div2⧻) Auxiliary

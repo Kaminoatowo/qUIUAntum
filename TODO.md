@@ -20,6 +20,3 @@ There is the [uiua-math](https://github.com/Omnikar/uiua-math) ([website](https:
 [ ] QFT
 
 # Bugs
-- Only single qubit measurements -> Multiple qubits measurement --> There is a way to do that:
--   First measure: Measure 0 Stage ThreadReg Reg 3 0_2 H_H
--   Following measure: ⍜⊣(Measure 2 °□) (one at a time)

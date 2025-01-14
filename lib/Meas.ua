@@ -1,25 +1,21 @@
 #Experimental!
 ~ "Math.ua" ~ Normalize
----MeasHelperm
 ~ "Sng.ua" ~ Qground Qexcited
-Single = .
-All = ⍜◌(⇡ₙ2 ⧻)
-SelectColumn = on(°⍉⊏)  ⍜◌⍉
-RandomChoice = /+ < ⚂ \+ join both(/+ⁿ 2) by⊃(⋅×:)(⋅×) ¬.
-#RandomChoiceAll = /+ < ⚂ \+ couple both(/+ⁿ 2) by ⊃(⋅×:)(⋅×)¬.
-SplitTensor =  resh join 2 div 2 bylen join not.
-#SplitTensorAll = ≡(resh join 2 div 2 bylen ⊂ not.)⍉
-SelectLevel = ⨬(Qground)(Qexcited)
-Call =  ⍜◌(SelectLevel underpopmul on⊏:⊃(SplitTensor)(RandomChoice)) SelectColumn pop ⨬(Single)(All) by(match ∞)
-#Call = underpop(SelectLevel underpop(×°⍉) on ≡⊏ : ⊃(SplitTensorAll)(RandomChoiceAll)) SelectColumn pop ⨬(Single)(All) by(match ∞)
----
-MeasHelper = MeasHelperm
----Measurem
 ~ "Circ.ua" ~ TensorIndex
-NumQubits   ← ₙ2 ⧻
-Indices       ← ⇡ ⧻
-BinBasis = TensorIndex NumQubits
-Call =  MeasHelper by(underpop(fork(Indices)(BinBasis)))
----
-Measure = join⍜◌(box Normalize) boxjoin ∩□ Measurem
-#Measure = join ⍜◌(box ⍜⍉ foldNormalize ) □⊂ ∩□ Measurem
+
+OnVS ← ⍜◌(⊸⊃(⇡⧻)(TensorIndex ₙ2 ⧻))
+Idx ← ⨬(∘)(⇡ₙ2⧻◌)≍[].
+PreMeas      ← Idx OnVS
+BasisSplit   ← ↯⊂2÷2⊸⧻⊂
+RandomChoice ← /+<⚂\+⊂∩(/+ ⁿ2)⊃(⋅×:)(⋅×)
+SelectColumn ← ⟜(°⍉⊏)⍜◌(⍉)
+Helper       ← ⟜⊏:⊃(BasisSplit)(RandomChoice)¬.
+SelectLevel  ← ⨬(Qground)(Qexcited)
+Meas         ← ⍜◌(⊂□⍜◌(□SelectLevel ⍜◌(□Normalize ×⍜◌(⊸(°□⊣)))Helper)SelectColumn)
+PostMeas     ← ⍜◌(⍜⊏◌0:□◇⊂□⊙⊸⊢⍜◌(⍜⇌(⍜⊏◌0):))
+Measure      ← |3.2 PostMeas Meas ↘1⟜⊢ PreMeas
+# Measure a vector state on given qubits
+# Input: number of measured qubits
+#        qubits
+#        vector state
+MeasureFun!  ← ◌◌⍥(⊙(°□⊸⊣) Measure)^0 ⊙⟜(⊂□[]□)

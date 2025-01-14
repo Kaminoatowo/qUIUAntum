@@ -2,7 +2,7 @@
 ~ "../lib/Math.ua" ~ OverSqrt RoundAny
 ~ "../lib/Circ.ua"
   ~ QtoTReorder Stage ThreadReg Unthread
-  ~ Reg Subregister Thread! ThreadGate
+  ~ Reg Subregister Thread ThreadGate
 ~ "../lib/Utils.ua" ~ Replace‼!
 ┌─╴Subregister
   A        ↚ ↯2_1 1_0
@@ -21,17 +21,17 @@
 └─╴
 ┌─╴Thread
   A         ↚ ↯2_1 1_0
-  Try       ← Thread!2 A A A
+  Try       ← Thread A_A_A
   Msg       ← "Threading different vector states should give you the combined one on top"
   Correct   ← ↯8_1 1_0_0_0_0_0_0_0_0_0_0_0_0_0_0_0
   Sqrt      ← OverSqrt 2
   Ai        ↚ ↯2_1 Sqrt_Sqrt
   Bi        ↚ ↯2_1 0_1
   Ci        ↚ ↯2_1 1_0
-  Tryi      ← Thread!2 Ai Bi Ci
+  Tryi      ← Thread Ai_Bi_Ci
   Msg       ← "Threading different vector states should give you the combined one on top"
   Correcti  ← ↯8_1 0_0_Sqrt_0_0_0_Sqrt_0
-  Tryii     ← Thread!3 Ai Ai Ai Ai
+  Tryii     ← Thread Ai_Ai_Ai_Ai
   Msg       ← "Threading different vector states should give you the combined one on top"
   Correctii ← ↯16_1 0.25
 └─╴
